@@ -1,0 +1,36 @@
+function App() {
+  const [input, setInput] = React.useState('');
+  const [messages, setMessages] = React.useState([]);
+
+  const sendMessage = (event) => {
+    setMessages([...messages, input]);
+    setInput('');
+  };
+
+  return (
+    <div>
+      <h1>Sup wankers</h1>
+      <input value={input} onChange={(event) => setInput(event.target.value)} />
+      <button onClick={sendMessage}>Send Message</button>
+      {messages.map((message) => (
+        <p>{message}</p>
+      ))}
+    </div>
+  );
+}
+
+в коде использован хук useState 2 раза, в первый раз чтобы зафиксировать изменение input тэга, второй раз
+чтобы записать в массив строку из перового применения useState,
+
+дабы отобразить эти изменения, используется метод map
+берётся всё что есть в messages и присваивается ему тэг <p> внутри которого содержится то, что прийдёт из input
+при нажатии на кнопку
+
+всё что оборачивается в тэг form, подлежит refresh при каждом изменении
+в коде, дабы сделать так, чтобы форма не заставляла делать rerender при нажатии на кнопку submit(enter), 
+нужно добавить event.preventDefault()
+хитрость дабы сделать возможным сделать submit по enter: 
+обернуть инпуты в тэг <form> и добавить на onClick - event.preventDefault()
+
+CTRL + SPACE - вызывает окно, где можно сделать IMPORT какого-либо компонента
+1.16.22
