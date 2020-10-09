@@ -33,4 +33,7 @@ function App() {
 обернуть инпуты в тэг <form> и добавить на onClick - event.preventDefault()
 
 CTRL + SPACE - вызывает окно, где можно сделать IMPORT какого-либо компонента
-1.16.22
+
+/with the spread operator code will copy all the files from messages (shadow copy), after that interpreter
+    //will replace username to what it will come from our useState username variable.
+    //And the text variable interpreter will get from input because it's just a text with a string type of variable

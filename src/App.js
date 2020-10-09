@@ -1,14 +1,22 @@
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import React from 'react';
 import { Message } from './components/Message';
+import { db } from './firebase';
+import firebase from 'firebase';
 
 function App() {
   const [input, setInput] = React.useState('');
-  const [messages, setMessages] = React.useState([
-    { username: 'Amelit', text: 'sup' },
-    { username: 'Wallrunner', text: 'Hey glad to see ya' },
-  ]);
+  const [messages, setMessages] = React.useState([]);
   const [username, setUsername] = React.useState('');
+
+  React.useEffect(() => {
+    //in this useEffect we only receive messages from our database that's it by using map
+    db.collection('messages')
+      .orderBy('timeStamp', 'desc')
+      .onSnapshot((snapshot) => {
+        setMessages(snapshot.docs.map((doc) => doc.data()));
+      });
+  }, []);
 
   React.useEffect(() => {
     setUsername(prompt('Enter your name please'));
@@ -16,10 +24,13 @@ function App() {
 
   const sendMessage = (event) => {
     event.preventDefault();
-    //with the spread operator code will copy all the files from messages (shadow copy), after that interpreter
-    //will replace username to what it will come from our useState username variable.
-    //And the text variable interpreter will get from input because it's just a text with a string type of variable
-    setMessages([...messages, { username: username, text: input }]);
+
+    db.collection('messages').add({
+      message: input,
+      username: username,
+      timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
     setInput('');
   };
 
