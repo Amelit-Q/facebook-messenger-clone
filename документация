@@ -38,4 +38,4 @@ CTRL + SPACE - вызывает окно, где можно сделать IMPOR
     //will replace username to what it will come from our useState username variable.
     //And the text variable interpreter will get from input because it's just a text with a string type of variable
 
-    1.52.40
+    

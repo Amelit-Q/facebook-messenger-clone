@@ -1,9 +1,12 @@
-import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
+import { FormControl, Input, InputLabel } from '@material-ui/core';
 import React from 'react';
 import { Message } from './components/Message';
 import { db } from './firebase';
 import firebase from 'firebase';
 import FlipMove from 'react-flip-move';
+import './App.css';
+import SendSharpIcon from '@material-ui/icons/SendSharp';
+import { IconButton } from '@material-ui/core';
 
 function App() {
   const [input, setInput] = React.useState('');
@@ -38,20 +41,28 @@ function App() {
   return (
     <div>
       <h2>Welcome {username}</h2>
-      <form>
-        <FormControl>
+
+      <form className="app__form">
+        <FormControl className="app__formControl">
           <InputLabel>Enter a message</InputLabel>
-          <Input value={input} onChange={(event) => setInput(event.target.value)} />
-          <Button
+          <Input
+            className="app__input"
+            placeholder="Enter a message..."
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+          />
+          <IconButton
+            className="app__iconButton"
             disabled={!input}
             type="submit"
             variant="contained"
             color="primary"
             onClick={sendMessage}>
-            Send Message
-          </Button>
+            <SendSharpIcon />
+          </IconButton>
         </FormControl>
       </form>
+
       <FlipMove>
         {messages.map(({ id, message }) => (
           <Message key={id} username={username} message={message} />
